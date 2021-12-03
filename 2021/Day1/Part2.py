@@ -14,7 +14,7 @@ for line in input_lines:
 # Iterate through the list and add 1 to the counter when the sliding window sum is greater than the previous one
 
 num_window_greater_than_previous = 0
-for i in range(1, len(depths_list)):
+for i in range(1, len(depths_list)-2):
     if (depths_list[i]+depths_list[i+1]+depths_list[i+2]) > (depths_list[i-1]+depths_list[i]+depths_list[i+1]):
         num_window_greater_than_previous +=1
 
