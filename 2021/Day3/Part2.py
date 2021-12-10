@@ -10,24 +10,60 @@ for line in input_lines:
     clean_line = line.replace("\n", "")
     diagnostic_report.append(clean_line)
 
-# Generate gamma & epsilon rates based on the frequency of 1s and 0s in the data
+# Get the oxygen rating
 
-gamma_rate = ''
-epsilon_rate = ''
-for i in range(0, len(diagnostic_report[0])):
-    digit=0
-    for binary_num in diagnostic_report:
-        digit+=int(binary_num[i])
-    if digit > (len(diagnostic_report)/2):
-        gamma_rate+="1"
-        epsilon_rate+="0"
+def filterArrayOxygenGenerator(num, arr):
+    new_arr = []
+    digit = 0
+    for i in range(0, len(arr)):
+        digit+=int(arr[i][num])
+    if digit >= (len(arr)/2):
+        digit = 1
     else:
-        gamma_rate+="0"
-        epsilon_rate+="1"
+        digit = 0
+    for i in range(0, len(arr)):
+        if int(arr[i][num]) == digit:
+            new_arr.append(arr[i])
+    return new_arr
+        
+
+def getOxygenGenerator():
+    index = 0
+    array = diagnostic_report
+    while len(array) >1:
+        array = filterArrayOxygenGenerator(index, array)
+        index+=1
+    return int(array[0], 2)
 
 
-# Convert rates from binary strings to numbers and multiply to obtain the result
+# Get CO2 Scrubber
 
-gamma_rate = int(gamma_rate, 2)
-epsilon_rate = int(epsilon_rate, 2)
-print(gamma_rate*epsilon_rate)
+def filterArrayCO2Scrubber(num, arr):
+    new_arr = []
+    digit = 0
+    for i in range(0, len(arr)):
+        digit+=int(arr[i][num])
+    if digit < (len(arr)/2):
+        digit = 1
+    else:
+        digit = 0
+    for i in range(0, len(arr)):
+        if int(arr[i][num]) == digit:
+            new_arr.append(arr[i])
+    return new_arr
+        
+
+def getCO2Scrubber():
+    index = 0
+    array = diagnostic_report
+    while len(array) >1:
+        array = filterArrayCO2Scrubber(index, array)
+        index+=1
+    return int(array[0],2)
+
+
+
+# Get result
+            
+print(getOxygenGenerator()*getCO2Scrubber())
+
