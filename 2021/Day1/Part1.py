@@ -1,7 +1,7 @@
 # Get the text from the input
 
 
-with open('2021/Day1/input-advent-1.txt') as f:
+with open('2021/Day1/input-day-1.txt') as f:
     input_lines = f.readlines()
 
 # Get rid of newlines & convert to numbers
